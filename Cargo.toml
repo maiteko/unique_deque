@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Sean Pace <sean.m.pace@outlook.com>"]
 license = "MIT OR Apache-2.0"
+readme = "README.md"
 description = "Provides UniqueDeque and KeyDeque data structures for managing ordered collections with efficient insertion, removal, lookup, and duplicate prevention."
+keywords = ["deque", "queue", "data-structures"]
+categories = ["data-structures"]
 
 [dependencies]
