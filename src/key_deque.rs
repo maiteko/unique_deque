@@ -100,15 +100,18 @@ impl<K: Eq + std::hash::Hash + Copy, T> KeyDeque<K, T> {
             None
         };
 
-        self.set.insert(key);
-        self.deque.push_front((key, item));
-
-        // For a brand new key `idx` is `None` and we short-circuit to returning
-        // `None`. Otherwise the old entry shifted one slot back by virtue of the
-        // `push_front`, so swap it to the front (where the new entry now sits)
-        // and pop it, returning the old value.
-        self.deque.swap(idx? + 1, 0);
-        self.deque.pop_front()
+        match idx {
+            Some(idx) => {
+                let mut value = (key, item);
+                std::mem::swap(self.deque.get_mut(idx).unwrap(), &mut value);
+                Some(value)
+            }
+            None => {
+                self.set.insert(key);
+                self.deque.push_front((key, item));
+                None
+            }
+        }
     }
 
     /// Pushes `(key, item)` to the back of the deque.
@@ -123,15 +126,18 @@ impl<K: Eq + std::hash::Hash + Copy, T> KeyDeque<K, T> {
             None
         };
 
-        self.set.insert(key);
-        self.deque.push_back((key, item));
-
-        // For a brand new key `idx` is `None` and we short-circuit to returning
-        // `None`. Otherwise swap the old entry to the back (where the new entry
-        // now sits) and pop it, returning the old value while the new entry
-        // stays in place.
-        self.deque.swap(idx?, self.deque.len() - 1);
-        self.deque.pop_back()
+        match idx {
+            Some(idx) => {
+                let mut value = (key, item);
+                std::mem::swap(self.deque.get_mut(idx).unwrap(), &mut value);
+                Some(value)
+            }
+            None => {
+                self.set.insert(key);
+                self.deque.push_back((key, item));
+                None
+            }
+        }
     }
 
     /// Removes and returns the front `(K, T)` pair, if any, and removes its key
