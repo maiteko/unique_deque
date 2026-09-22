@@ -8,5 +8,5 @@ readme = "README.md"
 description = "Provides UniqueDeque and KeyDeque data structures for managing ordered collections with efficient insertion, removal, lookup, and duplicate prevention."
 keywords = ["deque", "queue", "data-structures"]
 categories = ["data-structures"]
-
+repository = "https://github.com/maiteko/unique_deque"
 [dependencies]
