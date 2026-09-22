@@ -8,7 +8,7 @@ pub struct UniqueDeque<T: Eq + std::hash::Hash> {
     set: HashSet<T>,
 }
 
-impl<T: Eq + std::hash::Hash> UniqueDeque<T> {
+impl<T: Eq + std::hash::Hash + Clone> UniqueDeque<T> {
     pub fn new() -> Self {
         Self {
             deque: VecDeque::new(),
@@ -50,6 +50,7 @@ impl<T: Eq + std::hash::Hash> UniqueDeque<T> {
             return;
         }
 
+        self.set.insert(item.clone());
         self.deque.push_front(item);
     }
 
@@ -58,7 +59,8 @@ impl<T: Eq + std::hash::Hash> UniqueDeque<T> {
             return;
         }
 
-        self.deque.push_front(item);
+        self.set.insert(item.clone());
+        self.deque.push_back(item);
     }
 
     pub fn pop_front(&mut self) -> Option<T> {

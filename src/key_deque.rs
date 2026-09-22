@@ -59,7 +59,7 @@ impl<K: Eq + std::hash::Hash + Copy, T> KeyDeque<K, T> {
         self.set.insert(key);
         self.deque.push_front((key, item));
 
-        self.deque.swap(idx?, self.deque.len() - 1);
+        self.deque.swap(idx? + 1, 0);
         self.deque.pop_front()
     }
 
